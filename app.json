@@ -1,0 +1,87 @@
+{
+  "pages": [
+    "pages/main/main",
+    "pages/pay/package",
+    "pages/my/orderdetail",
+    "pages/pay/paysuccess",
+    "pages/my/sendCsMsg",
+    "pages/my/applyreturn",
+    "pages/my/returndetail",
+    "pages/my/order",
+    "pages/pay/order",
+    "pages/search/search",
+    "pages/item/item",
+    "pages/item/item_comments",
+    "pages/shop/map",
+    "pages/address/select",
+    "pages/my/order_underline",
+    "pages/my/returnlist",
+    "pages/my/grade",
+    "pages/my/logistics",
+    "pages/my/footprint",
+    "pages/my/favorite",
+    "pages/main/my",
+    "pages/address/edit",
+    "pages/pay/car",
+    "pages/shop/shopmain",
+    "pages/search/searchItem",
+    "pages/shop/shop",
+    "pages/main/shop_online",
+    "pages/main/msg",
+    "pages/main/shop_underline",
+    "pages/pay/pay",
+    "pages/cate/cate",
+    "pages/login/login",
+    "pages/password/check_phone",
+    "pages/password/update_password",
+    "pages/city/city",
+    "pages/settle/type",
+    "pages/settle/apply",
+    "pages/pay/recharge",
+    "pages/recommend/recommend"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffda44",
+    "navigationBarTitleText": "优价通",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#222222",
+    "selectedColor": "#222222",
+    "borderStyle": "#f9f9f9",
+    "backgroundColor": "#f9f9f9",
+    "list": [
+      {
+        "pagePath": "pages/main/main",
+        "text": "首页",
+        "iconPath": "images/1.png",
+        "selectedIconPath": "images/1-1.png"
+      },
+      {
+        "pagePath": "pages/main/shop_underline",
+        "text": "附近商店",
+        "iconPath": "images/2.png",
+        "selectedIconPath": "images/2-1.png"
+      },
+      {
+        "pagePath": "pages/main/msg",
+        "text": "消息",
+        "iconPath": "images/3.png",
+        "selectedIconPath": "images/3-1.png"
+      },
+      {
+        "pagePath": "pages/main/shop_online",
+        "text": "优价网店",
+        "iconPath": "images/4.png",
+        "selectedIconPath": "images/4-1.png"
+      },
+      {
+        "pagePath": "pages/main/my",
+        "text": "我的",
+        "iconPath": "images/5.png",
+        "selectedIconPath": "images/5-1.png"
+      }
+    ]
+  }
+}

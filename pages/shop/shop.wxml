@@ -1,0 +1,60 @@
+<!--顶部260rpx 底部100rpx-->
+<!--店铺基本信息-->
+<table class="shopheader" style="background-image:url({{config.res+'images/1.jpg'}});">
+    <tr>
+        <td class="shopheader-img" bindtap='showShopMain'>
+            <image src='{{config.res+shop.shop_logo}}' mode='aspectFill'/>
+        </td>
+        <td class="shopheader-text">
+            <view bindtap='showShopMain'>
+                <view class='shopheader-name'>{{shop.shop_name}}</view>
+                <view class='shopheader-tongji'>共{{shop.total_user_count || 0}}人消费 | 评价{{shop.shop_score || 0}}分</view>
+                <view class='shopheader-fanli'><image src='/images/15.png'/>返利{{shop.money_discount || 0 * 100}}%</view>
+                <view class='shopheader-ad'>
+                    <image class='shopheader-ad-icon' src='/images/12.png'/>{{shop.shop_title}}
+                    <image class='shopheader-ad-go' src='/images/21.png' />
+                </view>
+            </view>
+            <view class='shopheader-favorite' bindtap='updateUserFavoriteShop'>
+                <image src="/images/{{isFavorite?'16':'17'}}.png" />
+                <view>收藏店铺</view>
+            </view>
+        </td>
+    </tr>
+</table>
+
+<!--左侧分类-->
+<scroll-view scroll-y class='shopcate'>
+    <view class="shopcate-item {{selectedGroupId==item.item_group_id ? 'active':''}}" wx:for="{{groupList}}" wx:key="index"
+        bindtap="chooseShopGroup" data-groupid="{{item.item_group_id}}">
+        <text>{{item.group_name}}</text>
+    </view>
+</scroll-view>
+
+<!--右侧商品-->
+<scroll-view scroll-y class='shopitem'>
+    <view class='shoplist item' wx:for="{{itemList}}" wx:key="index" wx:if="{{selectedGroupId==item.item_group_id}}"
+        data-itemid="{{item.item_id}}" data-shoptype="{{shop.shop_type}}" bindtap='toItem'>
+        <view class='shoplist-img'>
+            <image src='{{config.res+item.item_face}}' mode='aspectFill' />
+        </view>
+        <view class='shoplist-right'>
+            <view class='shoplist-name'>{{item.item_name}}</view>
+            <view class='shoplist-count' wx:if="{{shop.shop_type==2}}">{{item.total_item_buy_count || 0}}人购买</view>
+            <view class='shoplist-price'>
+                <text class='shoplist-p1'>￥{{item.item_price}}</text>
+                <text class='shoplist-p2' wx:if="{{item.item_show_price>item.item_price}}">￥{{item.item_show_price}}</text>
+            </view>
+            <view class='shoplist-favorite' wx:if="{{shop.shop_type==2}}"><image src="{{item.is_favorite==1?'/images/19-1.png':'/images/19.png'}}"/>收藏</view>
+        </view>
+    </view>
+</scroll-view>
+
+<!--底部付款-->
+<view class="shoppay {{shop.shop_type==2?'online':''}} {{shop.shop_type==1?'offline':''}}">
+    <button class='shoppay-cus' open-type='contact'>
+        <image src='/images/18.png' />
+        联系客服
+    </button>
+    <view class='shopay-btn' bindtap='toPay'>付款</view>
+</view>

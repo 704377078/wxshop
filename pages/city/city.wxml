@@ -1,0 +1,11 @@
+<view>
+  <text class='city-type'>开通城市</text>
+</view>
+
+<view>
+    <ul class="city-list">
+      <li class="add" bindtap="chooseCity" wx:for="{{cityList}}" wx:key="" data-cityid="{{item.city_id}}" data-cityname="{{item.city_name}}">
+        <div>{{item.city_name}}</div>
+      </li>
+    </ul>
+</view>

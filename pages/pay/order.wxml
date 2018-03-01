@@ -1,0 +1,111 @@
+<!--背景色-->
+<view class='space-bg'></view>
+<table class="order-address" bindtap="toSelectAddress">
+  <tr>
+    <td class="order-address-icon">
+      <image src='/images/38.png' />
+    </td>
+    <td wx:if="{{address}}">
+      <view class='order-address-name'>{{address.address_user_name}}</view>
+      <view class='order-address-phone'>{{address.linkphone}}</view>
+      <view class='order-address-content' wx:if="{{address.provide_name}}">{{address.provide_name + (address.city_name=='市辖区'?'':address.city_name) + (address.area_name=='市辖区'?'':address.area_name) + address.address_detail}}</view>
+      <view class='order-address-content' wx:if="{{!address.address_detail}}">请选择地址</view>
+      <view class='order-address-content' wx:if="{{!address.provide_name&&address.address_detail}}">{{address.address_detail}}</view>
+    </td>
+    <td wx:if="{{!address}}">
+      <view class='order-address-content'>点击选择地址</view>
+    </td>
+    <td class='order-address-go'>
+      <image src='/images/7.png' />
+    </td>
+  </tr>
+</table>
+<view class='space-gray' style='margin:0;'></view>
+
+<view class="carlist nocheck" wx:for="{{shopList}}" wx:key="shop_id" wx:for-item="shop">
+  <view class='carlist-shop nocheck'>
+    <image class='carlist-shopicon' src='/images/32.png' />
+    <view class='carlist-shopname'>{{shop.shop_name}}</view>
+  </view>
+
+  <table class='carlist-item' wx:for="{{shop.itemList}}" wx:key="index" wx:for-item="item">
+    <tr>
+      <td class="carlist-item-img">
+        <image src='{{config.res+item.item_face}}' />
+      </td>
+      <td class="carlist-item-content">
+        <view class='carlist-item-name'>{{item.item_name}}</view>
+        <view class='carlist-item-cate'>
+          <text wx:for="{{item.specGroup}}" wx:key="item_spec_id" wx:for-item="group">
+                        {{group.parent_spec_name}}: {{group.spec_name}}
+                    </text>
+        </view>
+        <view class='carlist-item-pcount'>
+          <view class='carlist-item-price'>￥{{item.sku_price}}</view>
+          <view class='carlist-item-num'>数量: {{item.buy_count}}</view>
+        </view>
+      </td>
+    </tr>
+  </table>
+
+  <view class='carlist-shop-total'>
+    <view class='left'>共{{shop.itemCount}}件商品</view>
+    <view class='right'>
+      <text class='label'>合计: </text>
+      <text class='price'>￥{{shop.totalPrice}}</text>
+    </view>
+  </view>
+  <view class='space-gray' style='margin:0;'></view>
+</view>
+
+<!--底部-->
+<view class='space-gray' style='margin:0;height:170rpx;'></view>
+<!--支付-->
+<view class='pay-area'>
+  <checkbox-group bindchange="checkboxChange">
+    <label>
+      <checkbox class="pay-checkbox" value="1" disabled="{{userMoney<=0}}" />
+      <view class='pay-t1'>余额支付</view>
+      <view class='pay-t2'>（当前可用余额: ￥{{userMoney}}）</view>
+    </label>
+  </checkbox-group>
+
+  <view class='pay-t3'>支付：
+    <text class='pay-t4'>￥{{isUseMoney?(totalPrice-userMoney > 0 ? totalPrice-userMoney : 0) : totalPrice}}</text>
+  </view>
+  <view class='pay-button' bindtap='toPay'>去支付</view>
+</view>
+
+<view class="cash-pop-notice" wx:if="{{flag}}">
+  <view class='cash-pop-main'>
+    <view class="closeDiv" bindtap='hideFlag'>
+      <icon class='pop-main-icon' type="clear" size="20" />
+    </view>
+    <view class="cash-pop-title">请输入支付密码</view>
+    <view class="cash-password-main">
+      <view>
+        <input class='password-input' type="number" bindinput='toSetPasswprd' value="{{password}}" data-key='password' maxlength="6" />
+      </view>
+       <view class="password-box clearfix">
+        <view class='password-sigle'>
+          <i wx:if="{{passwordLength>0}}"></i>
+        </view>
+        <view class='password-sigle'>
+          <i wx:if="{{passwordLength>1}}"></i>
+        </view>
+        <view class='password-sigle'>
+          <i wx:if="{{passwordLength>2}}"></i>
+        </view>
+        <view class='password-sigle'>
+          <i wx:if="{{passwordLength>3}}"></i>
+        </view>
+        <view class='password-sigle'>
+          <i wx:if="{{passwordLength>4}}"></i>
+        </view>
+        <view class='password-sigle'>
+          <i wx:if="{{passwordLength==6}}"></i>
+        </view>
+      </view> 
+    </view>
+  </view>
+</view>

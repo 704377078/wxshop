@@ -1,0 +1,41 @@
+<view class="address" wx:for="{{addressList}}" wx:key="address_id">
+    <table bindtap="selectAddress" data-addressid="{{item.address_id}}">
+        <tr>
+            <td class="address-checkbox {{selectedAddressId==item.address_id?'checked':''}}">
+                <view wx:if="{{!noselect}}"><image src='/images/37.png' /></view>
+            </td>
+            <td class="address-text">
+                <view class='address-name'>{{item.address_user_name}}</view>
+                <view class='address-phone'>{{item.linkphone}}</view>
+                <view class='address-content'>{{item.address_detail}}</view>
+            </td>
+        </tr>
+    </table>
+
+    <view class='address-tools'>
+        <view class='address-default' bindtap='changeDefault' data-index="{{index}}">
+            <view class="radio {{item.is_default?'checked':''}}"><image src='/images/36.png' />默认地址</view>
+        </view>
+        <view class='address-del' bindtap='delAddress' data-index="{{index}}">
+            <image src='/images/40.png' />删除
+        </view>
+        <view class='address-edit' bindtap='toEdit' data-addressid="{{item.address_id}}">
+            <image src='/images/39.png' />编辑
+        </view>
+    </view>
+
+    <view class='space-gray' style="margin:0;"></view>
+</view>
+
+<!--背景色-->
+<view class='space-bg'></view>
+
+<!--底部-->
+<view class='space-gray' style='margin-bottom:0;height:100rpx;'></view>
+<view class='iteminfo-bottom'>
+    <view class='address-addbtn' bindtap='toEditAddress'>
+        <image src='/images/41.png' />
+        添加新地址
+    </view>
+    <view class='pay-button' style="margin:18rpx 20rpx 0 0;" bindtap='confirm' wx:if="{{!noselect}}">确定选择</view>
+</view> 

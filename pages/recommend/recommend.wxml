@@ -1,0 +1,108 @@
+<!--顶部选择-->
+<view class='scrollver noshadow c4'>
+  <table>
+    <tr>
+      <td>
+        <view class="scrollver-item {{tab==1?'active':''}}" bindtap="changeTab" data-tab="1">活动规则</view>
+      </td>
+      <td>
+        <view class="scrollver-item {{tab==2?'active':''}}" bindtap="changeTab" data-tab="2">我的推荐</view>
+      </td>
+      <td>
+        <view class="scrollver-item {{tab==3?'active':''}}" bindtap="changeTab" data-tab="3">推荐排行榜</view>
+      </td>
+    </tr>
+  </table>
+</view>
+
+<view class='share-main'>
+  <!--活动规则-->
+  <view wx:if="{{tab==1}}">
+    <view>
+      活动规则活动规则活动规则活动规则活动规则活动规则活动规则活动规则活动规则活动规 活动规则活动规则活动规则活动规则活动规则活动规则活动规则活动规则 活动规则
+    </view>
+  </view>
+
+  <!--我的推荐-->
+  <view wx:if="{{tab==2}}">
+    <view class='recom-no-shop' wx:if="{{!list||!list.length}}">
+      <view class="no-shop-title">您没有推荐的商家</view>
+      <view>推荐商家，每次成交都可获得返利</view>
+    </view>
+    <view class='shoplist' wx:for="{{list}}" wx:key="shop_id" data-shopid="{{item.shop_id}}" bindtap='toShop'>
+      <view wx:if="{{item.shop_type==1}}">
+        <view class='shoplist-img'>
+          <image src='{{config.res+item.shop_logo}}' mode='aspectFill' />
+          <view class='shoplist-fl'>返利{{item.money_discount*100}}%</view>
+        </view>
+        <view class='shoplist-right'>
+          <view class='shoplist-name'>{{item.shop_name}}</view>
+          <view class='shoplist-dist'>{{item.distance}}km</view>
+          <view class='shoplist-start'>
+            <view class='shoplist-start-bg' style='background-image:url(/images/9.png)'></view>
+            <view class='shoplist-start-cover' style='background-image:url(/images/10.png);width:{{item.shop_score*35}}rpx;'></view>
+          </view>
+          <view class='shoplist-count'>{{item.total_user_count}}人消费</view>
+          <view class='shoplist-address'>
+            <image src='/images/11.png' />{{item.shop_info_address}}</view>
+          <view class='shoplist-ad shoplist-rebate'>
+            累计返利：¥ {{item.recommend_rebate}}</view>
+        </view>
+      </view>
+
+      <view wx:if="{{item.shop_type==2}}">
+        <view class='shoplist-img'>
+          <image src='{{config.res+item.shop_logo}}' mode='aspectFill' />
+          <view class='shoplist-fl'>返利{{item.money_discount*100}}%</view>
+        </view>
+        <view class='shoplist-right'>
+          <view class='shoplist-name'>{{item.shop_name}}</view>
+          <view class='shoplist-start'>
+            <view class='shoplist-start-bg' style='background-image:url(/images/9.png)'></view>
+            <view class='shoplist-start-cover' style='background-image:url(/images/10.png);width:{{item.shop_score*35}}rpx;'></view>
+          </view>
+          <view class='shoplist-count'>{{item.total_user_count}}人购买</view>
+          <view class='shoplist-address'>
+            <image src='/images/29.png' style='width:26rpx;height:26rpx;top:4rpx;' />销量{{item.total_sale_count}} 共{{item.item_count}}个商品</view>
+          <view class='shoplist-ad shoplist-rebate'>
+            累计返利：¥ {{item.recommend_rebate}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!--推荐排行榜-->
+  <view wx:if="{{tab==3}}">
+    <view class='recomlist my-recom' wx:if="{{myRank}}">
+      <view class='recomlist-index'><text decode="{{true}}" space="{{true}}">&nbsp;&nbsp;</text> </view>
+      <view class='recomlist-img'>
+        <image src='{{myRank.wx_headimg}}' mode='aspectFit' />
+      </view>
+      <view class='recomlist-mid'>
+        <view class='recomlist-name'>{{myRank.wx_nickname}}</view>
+        <view class='recomlist-rank'>第{{myRank.rank}}名，推荐{{myRank.recommend_count}}家</view>
+      </view>
+      <view class='recomlist-right'>
+        {{myRank.total_money}}元
+      </view>
+    </view>
+
+    <view class='recomlist' wx:for="{{rankList}}">
+      <view class='recomlist-index'>{{index+1}}</view>
+      <view class='recomlist-img'>
+        <image src='{{item.wx_headimg}}' mode='aspectFit' />
+      </view>
+      <view class='recomlist-mid'>
+        <view class='recomlist-name'>{{item.wx_nickname}}</view>
+        <view class='recomlist-rank'>推荐{{item.recommend_count}}家</view>
+      </view>
+      <view class='recomlist-right'>
+        {{item.total_money}}元
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class='share-btn'>
+  <button type='primary' open-type="share">我要推荐</button>
+</view>

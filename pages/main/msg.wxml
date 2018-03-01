@@ -1,0 +1,15 @@
+<view class="msglist" wx:for="{{[1,2,3,4]}}" wx:key="index">
+    <view class='msglist-icon'>
+        <image src='/images/t8.png' />
+    </view>
+    <view class='msglist-right'>
+        <view class='msglist-title'>系统消息</view>
+        <view class='msglist-time'>昨天 13:45</view>
+        <view class='msglist-content'>恭喜您获得抽奖机会，立即做任务轻松领奖举决就暑假补习创建申报了</view>
+        <view class='msglist-shop'>
+            <image class='msglist-shop-icon' src='/images/27.png' />
+            陈先生的肉肉
+            <image class='msglist-shop-go' src='/images/7.png' />
+        </view>
+    </view>
+</view>

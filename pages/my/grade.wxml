@@ -1,0 +1,45 @@
+<view class="carlist nocheck" wx:if="{{item_id}}">
+  <table class='carlist-item'>
+    <tr>
+      <td class="carlist-item-img">
+        <image src='{{config.res+item.item_face}}' />
+      </td>
+      <td class="carlist-item-content">
+        <view class='carlist-item-name'>{{item.item_name}}</view>
+        <view class='carlist-item-cate'>{{item.spec_group_text}}</view>
+        <view class='carlist-item-pcount'>
+          <view class='carlist-item-price'>￥{{item.sku_price}}</view>
+          <view class='carlist-item-num'>数量: {{item.buy_count}}</view>
+        </view>
+      </td>
+    </tr>
+  </table>
+</view>
+<form bindsubmit="submit">
+  <view class='grade'>
+    <textarea placeholder='请评价您的本次消费吧' name='content'></textarea>
+    <ul class="editMessage_choose">
+      <block wx:for="{{imgList}}" wx:for-index="idx" wx:key="">
+        <li bindtap="delPhoto" data-index="{{idx}}">
+          <div style="background-image:url({{item.preview}})"></div>
+        </li>
+      </block>
+      <li class="add" bindtap="addPhoto">
+        <div style="background-image:url({{config.res+'images/59.png'}})"></div>
+      </li>
+    </ul>
+
+    <view class='shopscore'>
+      <view class='shopscore-inner'>
+        <view class='shopscore-score'>{{score}}</view>
+        <view class='shopscore-title' wx:if="{{!item_id}}">店铺评分</view>
+        <view class='shopscore-title' wx:if="{{item_id}}">评分</view>
+        <view class='shoplist-start'>
+          <div class='shoplist-start-grade' style="background-image:url({{score>=item?config.res+'images/10.png':config.res+'images/9.png'}})" wx:for="{{[1,2,3,4,5]}}" wx:key="" bindtap="changeScore" data-score="{{item}}"></div>
+        </view>
+        <view class='shopscore-score2'>{{score}}</view>
+      </view>
+    </view>
+  </view>
+  <button class='bigbutton' formType="submit">发布</button>
+</form>

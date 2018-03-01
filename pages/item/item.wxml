@@ -1,0 +1,102 @@
+<import src="../../wxParse/wxParse.wxml" />
+<!--顶部banner-->
+<swiper indicator-dots="{{true}}" indicator-color="#7b7b7b" indicator-active-color="#ffda44" autoplay="{{true}}" interval="10000" duration="1000" style='height:450rpx;'>
+  <swiper-item wx:for="{{itemImgList}}" wx:key="img_id">
+    <image src="{{config.res+item.imgurl}}" mode="aspectFill" style='width:100%;height:450rpx;' />
+  </swiper-item>
+</swiper>
+
+<!--商品信息-->
+<view class='iteminfo'>
+  <view class='iteminfo-name'>{{itemData.item_name}}</view>
+  <view class='iteminfo-favorite'>{{itemData.total_item_favorite_count || 0}}人收藏</view>
+  <view class='iteminfo-price'>
+    <text class='iteminfo-price1'>￥{{sku.sku_price?sku.sku_price:itemData.item_price}}</text>
+    <text class='iteminfo-price2'>￥{{itemData.item_show_price}}</text>
+  </view>
+</view>
+<view class='space-gray'></view>
+
+<!--规格-->
+<view class='iteminfo-spec' wx:for="{{specList}}" wx:key="item_spec_id" wx:for-item="d">
+  <view class='iteminfo-spec-title'>{{d.spec_name}}</view>
+  <view class="iteminfo-spec-item {{specData[d.item_spec_id]==c.item_spec_id?'active':''}}" wx:for="{{d.children}}" wx:key="item_spec_id" wx:for-item="c" bindtap="selectSpec" data-specid="{{c.item_spec_id}}" data-parentid="{{d.item_spec_id}}">{{c.spec_name}}</view>
+</view>
+
+<!--购买是数量-->
+<view class='iteminfo-buycount'>
+  <view class='iteminfo-buycount-title'>购买数量（库存：{{sku.sku_count || 0}}）</view>
+  <view class='iteminfo-count' wx:if="{{sku.sku_count>0}}">
+    <image class='iteminfo-count-jian' src="/images/30.png" bindtap='changeBuyCount' data-type="0" />
+    <view class='iteminfo-count-num'>{{buyCount}}</view>
+    <image class='iteminfo-count-jia' src="/images/31.png" bindtap='changeBuyCount' data-type="1" />
+  </view>
+</view>
+<view class='space-gray' style='margin-bottom:0;'></view>
+
+<!--评价列表-->
+<view class='infotitle' bindtap='toComments'>
+  评价
+  <image class='infotitle-go' src='/images/7.png' />
+  <view class='infotitle-btn'>更多评论（共{{comment.commentCount}}条）</view>
+</view>
+<view class='comment' bindtap='toComments'>
+  <view class='comment-head'>
+    <image src='/images/t6.png' />
+  </view>
+  <view class='comment-right'>
+    <view class='comment-name'>{{comment.wx_nickname}}</view>
+    <view class='comment-date'>{{comment.create_time}}</view>
+    <view class='comment-pj'>
+      <view class='comment-pj-text'>评价</view>
+      <view class='shoplist-start'>
+        <view class='shoplist-start-bg' style='background-image:url({{config.res+"images/9.png"}})'></view>
+        <view class='shoplist-start-cover' style='background-image:url({{config.res+"images/10.png"}});width:{{comment.score*35}}rpx;'></view>
+      </view>
+    </view>
+    <view class='comment-content'>{{comment.content}}</view>
+    <view class='comment-img'>
+      <view class='comment-img-item' wx:for="{{comment.imgList}}" wx:key="id">
+        <image src='{{config.res+item.imgurl}}' mode='aspectFill' />
+      </view>
+    </view>
+  </view>
+</view>
+<view class='space-gray' style='margin-bottom:0;'></view>
+
+<!--详情-->
+<view class='infotitle'>
+  详情
+</view>
+<view class='item-memo'>
+  <template is="wxParse" data="{{wxParseData:parseItemMemo.nodes}}" />
+</view>
+
+<!--底部工具条-->
+<view class='space-gray' style='margin-bottom:0;height:100rpx;'></view>
+<view class='iteminfo-bottom'>
+  <view class='iteminfo-icon shop' bindtap='toShop' url="/pages/shop/shop?shopid={{itemData.shop_id}}">
+    <image src='/images/32.png' />
+    <text>店铺</text>
+  </view>
+  <view class='iteminfo-icon car' bindtap='toCar'>
+    <image src='/images/33.png' />
+    <text>购物车</text>
+    <view class='count' wx:if="{{carItemCount>0}}">{{carItemCount}}</view>
+  </view>
+  <view class='iteminfo-icon fav' bindtap='toFavorite'>
+    <image src="/images/{{isFavorite?'34':'19'}}.png" />
+    <text>收藏</text>
+  </view>
+  <view class='iteminfo-icon cs'>
+    <button class='contact-btn' open-type='contact'>
+      <image src='/images/35.png' />
+      <text>客服</text>
+    </button>
+  </view>
+  <view class='iteminfo-btn'>
+    <view class='iteminfo-add' bindtap='addToCar'>加入购物车</view>
+    <view class='iteminfo-buy' bindtap='addToBuy'>立即购买</view>
+  </view>
+
+</view>

@@ -1,0 +1,53 @@
+<table class="form">
+    <tr>
+        <td class="label">收货人</td>
+        <td class="input">
+            <input placeholder='姓名' value="{{address.address_user_name}}" bindinput="changeModel" data-key='address_user_name' />
+        </td>
+    </tr>
+    <tr>
+        <td class="label">联系电话</td>
+        <td class="input">
+            <input placeholder='手机号码' type='number' value="{{address.linkphone}}" bindinput="changeModel" data-key='linkphone'/>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">所在地区</td>
+        <td class="select" bindtap="showArea">
+            <input placeholder='请选择' disabled value='{{areatext}}' />
+            <image src='/images/7.png' />
+        </td>
+    </tr>
+    <tr class="textareatr">
+        <td class="label">街道地址</td>
+        <td class="textareatd">
+            <textarea placeholder='请填写详细地址，不少于5个字' value="{{address.address_detail}}" bindinput="changeModel" data-key='address_detail'></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td class="label">设为默认</td>
+        <td style="text-align:right;font-size:0;">
+            <label class="openclose {{address.is_default?'checked':''}}" bindtap='changedefault'>
+                <checkbox  />
+                <text>开</text>
+                <text>关</text>
+            </label>
+        </td>
+    </tr>
+</table>
+<view class='bigbutton' bindtap='save'>保存</view>
+
+<view class='areaselect' wx:if="{{isShowArea}}">
+    <picker-view indicator-style="height: 50px;" value="{{selectValue}}" bindchange="bindChange">
+        <picker-view-column>
+            <view wx:for="{{provide}}" wx:key="provide_id" style="line-height: 50px">{{item.provide_name}}</view>
+        </picker-view-column>
+        <picker-view-column>
+            <view wx:for="{{city}}" wx:key="city_id" style="line-height: 50px">{{item.city_name}}</view>
+        </picker-view-column>
+        <picker-view-column>
+            <view wx:for="{{area}}" wx:key="area_id" style="line-height: 50px">{{item.area_name}}</view>
+        </picker-view-column>
+    </picker-view>
+    <view class='areaselect-btn' bindtap="showArea">确定</view>
+</view>

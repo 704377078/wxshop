@@ -1,0 +1,111 @@
+<!--tab-->
+<!-- <view class='scrollver c4'>
+    <table>
+        <tr>
+            <td><view class='scrollver-item active'>综合排序</view></td>
+            <td><view class='scrollver-item'>价格排序</view></td>
+            <td><view class='scrollver-item'>综合排序</view></td>
+            <td><view class='scrollver-item'>价格排序</view></td>
+        </tr>
+    </table>
+</view>
+<view class='space-gray' style="margin-bottom:0;"></view> -->
+
+<!--商品-->
+<view class="carlist nocheck" wx:for="{{list}}" wx:key="order_id" wx:for-item="order">
+  <!-- 线上订单 -->
+  <block wx:if="{{order.order_type==1}}">
+    <view class='carlist-shop nocheck' data-orderid="{{order.order_id}}" data-orderstatus="{{order.order_status}}" bindtap="toOrderDetail">
+      <image class='carlist-shopicon' src='/images/32.png' />
+      <view class='carlist-shopname'>{{order.shop_name}}</view>
+      <image src='/images/7.png' class='carlist-shopgo' />
+      <view class='carlist-status txt-yellow'>{{enumData.enumOrderStatus[order.order_status].text}}</view>
+    </view>
+
+    <table class='carlist-item' wx:for="{{order.itemList}}" wx:key="order_item_id" wx:for-item="item" data-orderid="{{order.order_id}}" data-orderstatus="{{order.order_status}}" bindtap="toOrderDetail">
+      <tr>
+        <td class="carlist-item-img">
+          <image src='{{config.res + item.item_face}}' />
+        </td>
+        <td class="carlist-item-content">
+          <view class='carlist-item-name'>{{item.item_name}}</view>
+          <view class='carlist-item-cate'>{{item.spec_group_text}}</view>
+          <view class='carlist-item-return' wx:if="{{item.return_status==1}}">退货中 </view>
+          <view class='carlist-item-return' wx:if="{{item.return_status==2}}">已退货 </view>
+          <view class='carlist-item-pcount'>
+            <view class='carlist-item-price'>￥{{item.sku_price}}</view>
+            <view class='carlist-item-num'>数量: {{item.buy_count}}</view>
+          </view>
+        </td>
+      </tr>
+    </table>
+
+    <view class='carlist-shop-total'>
+      <view class='left'>
+        <view>共{{order.itemCount}}件商品</view>
+        <view class='carlist-shop-total-time'>{{order.create_time}}</view>
+      </view>
+      <view class='right'>
+        <text class='label'>合计: </text>
+        <text class='price'>￥{{order.order_price}}</text>
+      </view>
+    </view>
+  </block>
+
+  <!-- 线下订单 -->
+  <block wx:if="{{order.order_type==2}}">
+    <view class='carlist-shop nocheck' data-shopid="{{order.shop_id}}" bindtap="toShop">
+      <image class='carlist-shopicon' src='/images/32.png' />
+      <view class='carlist-shopname'>{{order.shop_name}}</view>
+      <image src='/images/7.png' class='carlist-shopgo' />
+      <view class='carlist-status txt-yellow'>{{enumData.enumOrderStatus[order.order_status].text}}</view>
+    </view>
+    <view class='carlist-shop-total'>
+      <view>
+        <view class="carlist-item-img left">
+          <image src='{{config.res+order.shop_logo}}' />
+        </view>
+        <view class='right'>
+          <view class='carlist-shop-total-time' style='height:45rpx;'>{{order.create_time}}</view>
+          <view style='height:50rpx;text-align:right;'>
+            <text class='label'>返利: </text>
+            <text class='price'>￥{{order.rebate}}</text>
+          </view>
+          <view style='height:50rpx;text-align:right;'>
+            <text class='label'>消费: </text>
+            <text class='price'>￥{{order.order_price}}</text>
+          </view>
+        </view>
+      </view>
+      <view>
+        
+      </view>
+    </view>
+  </block>
+
+
+  <view class='carlist-btnlist' wx:if="{{order.order_status==1}}">
+    <view bindtap='delOrder' data-index="{{index}}">取消订单</view>
+    <view class='yellow' bindtap='goPay' data-index="{{index}}">去付款</view>
+  </view>
+  <view class='carlist-btnlist' wx:if="{{order.order_status==2}}">
+    <view class='yellow' bindtap='toApplyReturn' data-orderid="{{order.order_id}}">退款/退货</view>
+  </view>
+  <view class='carlist-btnlist' wx:if="{{order.order_status==3}}">
+    <view bindtap='toApplyReturn' data-orderid="{{order.order_id}}">退款/退货</view>
+    <view class='yellow' bindtap='confirmReceipt' data-orderid="{{order.order_id}}">确认收货</view>
+  </view>
+  <view class='carlist-btnlist' wx:if="{{order.order_status==4&&order.order_type==2}}">
+    <view class='yellow' bindtap='toGrade' data-orderid="{{order.order_id}}">评价</view>
+  </view>
+  <view class='carlist-btnlist' wx:if="{{order.order_status==6}}" wx:if="{{order.can_reurn}}">
+    <view class='yellow' bindtap='toApplyReturn' data-orderid="{{order.order_id}}">退款/退货</view>
+  </view>
+  <view class='space-gray' style='margin:0;clear:both;'></view>
+</view>
+
+<!--空数据-->
+<view class="nodata" wx:if="{{list.length==0}}">
+  <image src="/images/62.png" />
+  <text>空空如也~</text>
+</view>

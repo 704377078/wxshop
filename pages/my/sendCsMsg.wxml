@@ -1,0 +1,31 @@
+<table class="form">
+    <tr class="textareatr">
+        <td class="label">内容</td>
+        <td class="textareatd">
+            <textarea placeholder='请填写内容'></textarea>
+        </td>
+    </tr>
+    <tr class="textareatr">
+        <td class="label">上传照片</td>
+        <td class="textareatd" style="padding:20rpx;">
+            <ul class="editMessage_choose">
+                <li>
+                    <div></div>
+                </li>
+                <li>
+                    <div></div>
+                </li>
+                <li>
+                    <div></div>
+                </li>
+                <li>
+                    <div></div>
+                </li>
+                <li class="add" ng-click="">
+                    <div style="background-image:url(/images/59.png)"></div>
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
+<view class='bigbutton'>提交</view>

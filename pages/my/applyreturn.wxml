@@ -1,0 +1,69 @@
+<view class="carlist nocheck">
+  <table class='carlist-item'>
+    <tr>
+      <td class="carlist-item-img">
+        <image src='{{config.res+returnItem.item_face}}' />
+      </td>
+      <td class="carlist-item-content">
+        <view class='carlist-item-name'>{{returnItem.item_name}}</view>
+        <view class='carlist-item-cate'>{{returnItem.spec_group_text}}</view>
+        <view class='carlist-item-pcount'>
+          <view class='carlist-item-price'>￥{{returnItem.sku_price}}</view>
+          <view class='carlist-item-num'>数量: {{returnItem.buy_count}}</view>
+        </view>
+      </td>
+    </tr>
+  </table>
+</view>
+<form bindsubmit="submit">
+  <table class="form">
+    <tr wx:if="{{item_array.length>1}}">
+      <td class="label">选择商品</td>
+      <td class="input">
+        <picker bindchange="itemPickerChange" range="{{item_array}}" mode="selector" value='{{item_picker_index}}' style="display:inline-block;">
+          <view class="picker">{{item_array[item_picker_index]}}
+            <image src='/images/13.png' />
+          </view>
+        </picker>
+      </td>
+    </tr>
+    <tr>
+      <td class="label">申请原因</td>
+      <td class="input">
+        <picker bindchange="pickerChange" range="{{reason_array}}" mode="selector" value='{{reason_picker_index}}' style="display:inline-block;">
+          <view class="picker">{{reason_array[reason_picker_index]}}
+            <image src='/images/13.png' />
+          </view>
+        </picker>
+      </td>
+    </tr>
+    <tr>
+      <td class="label">退款金额</td>
+      <td class="input">
+        <input placeholder='最多可退{{max_return_money}}元，不含运费' type='digit' name='return_money'/>
+      </td>
+    </tr>
+    <tr class="textareatr">
+      <td class="label">备注</td>
+      <td class="textareatd">
+        <textarea placeholder='请填写备注' name='memo'></textarea>
+      </td>
+    </tr>
+    <tr class="textareatr">
+      <td class="label">上传照片</td>
+      <td class="textareatd" style="padding:20rpx;">
+        <ul class="editMessage_choose">
+          <block wx:for="{{imgList}}" wx:for-index="idx" wx:key="">
+            <li bindtap="delPhoto" data-index="{{idx}}">
+              <div style="background-image:url({{item.preview}})"></div>
+            </li>
+          </block>
+          <li class="add" bindtap="addPhoto">
+            <div style="background-image:url({{config.res+'images/59.png'}})"></div>
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+  <button class='bigbutton' formType="submit">提交申请</button>
+</form>

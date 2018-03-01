@@ -1,0 +1,17 @@
+<!--左侧分类-->
+<scroll-view scroll-y class='shopcate' style='top:0;bottom:0;'>
+    <view class="shopcate-item {{selectedParentCate.shop_cate_id==item.shop_cate_id?'active':''}}" 
+        wx:for="{{parentList}}" wx:key="shop_cate_id" bindtap="changeTab" data-index="{{index}}">
+        <text>{{item.cate_name}}</text>
+    </view>
+</scroll-view>
+
+<!--右侧分类-->
+<view class='shopcate2'>
+    <view class='iteminfo-spec'>
+        <view class='iteminfo-spec-title'>{{selectedParentCate.cate_name}}</view>
+        <view class='iteminfo-spec-item' bindtap="toSearch">全部</view>
+        <view class='iteminfo-spec-item' bindtap="toSearch" data-cateid="{{item.shop_cate_id}}"
+            wx:for="{{childList}}" wx:key="shop_cate_id">{{item.cate_name}}</view>
+    </view>
+</view>

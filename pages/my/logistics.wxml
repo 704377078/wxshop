@@ -1,0 +1,49 @@
+<!--订单信息-->
+<view class='orderdetail-info' style='color:#222222;'>
+    <text>快递类别：{{order.express_name}}</text>
+    <text>快递单号：{{order.express_no}}</text>
+</view>
+<view class='space-gray' style='margin:0;'></view>
+
+<!-- 快递信息 -->
+<table class="kuaidi" wx:if="{{firstTrace}}">
+    <tr class='finish' wx:if="{{lastTrace}}">
+        <td class='kuaidi-datetime'>
+            <view class='kuaidi-date'>{{lastTrace.date}}</view>
+            <view class='kuaidi-time'>{{lastTrace.time}} <text class='kuaidi-week'>{{lastTrace.week}}</text></view>
+        </td>
+        <td class='kuaidi-icon'>
+            <view class='line'><image src='/images/55.png' /></view>
+        </td>
+        <td class="kuaidi-content">
+            {{lastTrace.AcceptStation}}
+        </td>
+    </tr>
+    <tr  wx:for="{{expressTraces}}" wx:key="">
+        <td class='kuaidi-datetime'>
+            <view class='kuaidi-date'>{{item.date}}</view>
+            <view class='kuaidi-time'>{{item.time}} <text class='kuaidi-week'>{{item.week}}</text></view>
+        </td>
+        <td class='kuaidi-icon'>
+            <view class='line'><image src='/images/58.png' /></view>
+        </td>
+        <td class="kuaidi-content">
+            {{item.AcceptStation}}
+        </td>
+    </tr>
+    <tr class='start' wx:if="{{firstTrace}}">
+        <td class='kuaidi-datetime'>
+            <view class='kuaidi-date'>{{firstTrace.date}}</view>
+            <view class='kuaidi-time'>{{firstTrace.time}} <text class='kuaidi-week'>{{firstTrace.week}}</text></view>
+        </td>
+        <td class='kuaidi-icon'>
+            <view class='line'><image src='/images/57.png' /></view>
+        </td>
+        <td class="kuaidi-content">
+            {{firstTrace.AcceptStation}}
+        </td>
+    </tr>
+</table>
+<view wx:if="{{expressTraces.length==0}}" style="text-align:center; margin-top:50px;">
+  暂无物流信息
+</view>

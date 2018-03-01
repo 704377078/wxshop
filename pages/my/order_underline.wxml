@@ -1,0 +1,19 @@
+<view class='space'></view>
+<!--商铺列表-->
+<view class='shoplist' wx:for="{{[1,2,3,4]}}">
+    <view class='shoplist-img'>
+        <image src='/images/t3.png' mode='aspectFill' />
+    </view>
+    <view class='shoplist-right'>
+        <view class='shoplist-name'>疯狂烤鸡翅（北京路店）</view>
+        <view class='shoplist-dist'>已完成</view>
+        <view class='shoplist-count'>2017-9-12 12:00</view>
+        <view class='shoplist-order'>
+            <text>消费: ￥150.00</text>
+            <text>返利: ￥15.00</text>
+            <view class='carlist-btnlist'>
+                <view class='yellow'>去评价</view>
+            </view>
+        </view>
+    </view>
+</view>

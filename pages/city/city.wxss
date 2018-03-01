@@ -1,0 +1,32 @@
+/* pages/city/city.wxss */
+
+.city-type {
+  font-size: 32rpx;
+  color: #999;
+  margin-left: 20px;
+}
+
+.city-list {
+  margin-top: 10px;
+  display: inline-block;
+  width: 100%;
+}
+
+.city-list li {
+  float: left;
+  width: -webkit-calc((100% - 100rpx) / 4);
+  margin-bottom: 20rpx;
+  margin-left: 20rpx;
+}
+
+.city-list li:nth-child(4n) {
+  margin-right: 0;
+}
+
+.city-list li div {
+  background-color: #f4f4f6;
+  width: 100%;
+  text-align: center;
+  font-size: 26rpx;
+  padding: 10rpx 0;
+}

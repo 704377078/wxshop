@@ -1,0 +1,31 @@
+<!--商品-->
+<view class="carlist nocheck"  wx:for="{{[1,2]}}">
+    <view class='carlist-shop nocheck'>
+        <image class='carlist-shopicon' src='/images/32.png' />
+        <view class='carlist-shopname'>疯狂烤鸡翅（北京路店）</view>
+        <image src='/images/7.png' class='carlist-shopgo' />
+        <view class='carlist-status txt-yellow'>待商家同意</view>
+    </view>
+
+    <table class='carlist-item' wx:for="{{[1,2]}}">
+        <tr>
+            <td class="carlist-item-img">
+                <image src='/images/t7.png' />
+            </td>
+            <td class="carlist-item-content">
+                <view class='carlist-item-name'>夺命销魂小排一份大降价熟路线失落城堡</view>
+                <view class='carlist-item-cate'>分类: 一对</view>
+                <view class='carlist-item-pcount'>
+                    <view class='carlist-item-price'>￥12.00</view>
+                    <view class='carlist-item-num'>数量: 3</view>
+                </view>
+            </td>
+        </tr>
+    </table>
+
+    <view class='carlist-btnlist' style='margin-top:20rpx;'>
+        <view>取消退款</view>
+        <view class='yellow'>再次申请</view>
+    </view>
+    <view class='space-gray' style='margin:0;clear:both;'></view>
+</view>

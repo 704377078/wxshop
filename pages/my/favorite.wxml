@@ -1,0 +1,68 @@
+<!--顶部选择-->
+<view class='scrollver noshadow c4'>
+    <table>
+        <tr>
+            <td><view class="scrollver-item {{picker_index==0?'active':''}}" bindtap="pickerChange" data-index="0">线下店铺</view></td>
+            <td><view class="scrollver-item {{picker_index==1?'active':''}}" bindtap="pickerChange" data-index="1">优价网店</view></td>
+            <td><view class="scrollver-item {{picker_index==2?'active':''}}" bindtap="pickerChange" data-index="2">网店商品</view></td>
+        </tr>
+    </table>
+</view>
+
+<!--商铺列表-->
+<view class='shoplist' wx:for="{{shopList}}" wx:key="shop_id" data-shopid="{{item.shop_id}}"
+    bindtap='toShop' wx:if="{{picker_index==0}}">
+    <view class='shoplist-img'>
+        <image src='{{config.res+item.shop_logo}}' mode='aspectFill' />
+        <view class='shoplist-fl'>返利{{item.money_discount*100}}%</view>
+    </view>
+    <view class='shoplist-right'>
+        <view class='shoplist-name'>{{item.shop_name}}</view>
+        <view class='shoplist-dist'>{{item.distance}}km</view>
+        <view class='shoplist-start'>
+            <view class='shoplist-start-bg' style='background-image:url({{config.res+"images/9.png"}})'></view>
+            <view class='shoplist-start-cover' style='background-image:url({{config.res+"images/10.png"}});width:{{item.shop_score*35}}rpx;'></view>
+        </view>
+        <view class='shoplist-count'>{{item.total_user_count}}人消费</view>
+        <view class='shoplist-address'><image src='/images/11.png'/>{{item.shop_info_address}}</view>
+        <view class='shoplist-ad'><image src='/images/12.png'/>{{item.shop_title}}</view>
+        <image class='shoplist-go' src='/images/7.png' />
+    </view>
+</view>
+
+<view class='shoplist' wx:for="{{shopList}}" wx:key="shop_id" data-shopid="{{item.shop_id}}"
+    bindtap='toShop' wx:if="{{picker_index==1}}">
+    <view class='shoplist-img'>
+        <image src='{{config.res+item.shop_logo}}' mode='aspectFill' />
+        <view class='shoplist-fl'>返利{{item.money_discount*100}}%</view>
+    </view>
+    <view class='shoplist-right'>
+        <view class='shoplist-name'>{{item.shop_name}}</view>
+        <view class='shoplist-start'>
+            <view class='shoplist-start-bg' style='background-image:url({{config.res+"images/9.png"}})'></view>
+            <view class='shoplist-start-cover' style='background-image:url({{config.res+"images/10.png"}});width:{{item.shop_score*35}}rpx;'></view>
+        </view>
+        <view class='shoplist-count'>{{item.total_user_count}}人购买</view>
+        <view class='shoplist-address'><image src='/images/29.png' style='width:26rpx;height:26rpx;top:4rpx;'/>销量{{item.total_sale_count}} 共{{item.item_count}}个商品</view>
+        <view class='shoplist-ad'><image src='/images/12.png'/>{{item.shop_title}}</view>
+        <image class='shoplist-go' src='/images/7.png' />
+    </view>
+</view>
+
+<!--商品列表-->
+<view class='shoplist' wx:for="{{itemList}}" wx:key="item_id" data-itemid="{{item.item_id}}"
+    bindtap='toItem' wx:if="{{picker_index==2}}">
+    <view class='shoplist-img'>
+        <image src='{{config.res+item.item_face}}' mode='aspectFill' />
+    </view>
+    <view class='shoplist-right'>
+        <view class='shoplist-name'>{{item.item_name}}</view>
+        <view class='shoplist-count' style='float:right;'>{{item.total_item_user_count}}人购买</view>
+        <view class='shoplist-price' style='margin-top:8rpx;'>
+            <text class='shoplist-p1'>￥{{item.item_price}}</text>
+            <text class='shoplist-p2'>￥{{item.item_show_price}}</text>
+        </view>
+        <view class='shoplist-ad'><image src='/images/12.png'/>{{item.shop_name}}</view>
+        <image class='shoplist-go' src='/images/7.png' />
+    </view>
+</view>

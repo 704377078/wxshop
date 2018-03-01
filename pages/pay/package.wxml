@@ -1,0 +1,32 @@
+<!--顶部-->
+<view class="package-head" style="background-image:url({{config.res+'images/54.png'}})">
+    <view class='item line' bindtap='changeLogType' data-logtype=''>
+        <text class='title'>余额（元）</text>
+        <text class='money'>{{user_money||0}}</text>
+    </view>
+    <view class='item' bindtap='changeLogType' data-logtype='3'>
+        <text class='title'>获得返利（元）</text>
+        <text class='money'>{{fanli||0}}</text>
+    </view>
+</view>
+<view class="package-head1">
+    <view class='item line' bindtap='recharge' data-logtype=''>
+        <text class='button'>充值</text>
+    </view>
+    <view class='item' bindtap='withdraw' data-logtype='3'>
+        <text class='button'>提现</text>
+    </view>
+</view>
+<view class='infotitle'>交易记录（元）</view>
+<table class="loglist" wx:for="{{list}}" wx:key="log_id">
+    <tr>
+        <td>
+            <view class='loglist-name'>{{enumData.enumUserMoneyLogType[item.log_type].text}}</view>
+            <view class='loglist-desc'>{{item.log_memo}}</view>
+        </td>
+        <td>
+            <view class='loglist-price'>{{item.change_money}}</view>
+            <view class='loglist-time'>{{item.create_time}}</view>
+        </td>
+    </tr>
+</table>

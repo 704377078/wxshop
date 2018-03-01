@@ -1,0 +1,66 @@
+<view class="carlist"  wx:for="{{shopList}}" wx:key="shop_id" wx:for-item="shop" wx:for-index="sindex">
+    <view class='carlist-shop'>
+        <label class="carlist-checkbox {{selectedShop[shop.shop_id]?'checked':''}}" bindtap="selectItem" data-shop="{{shop}}" data-item="{{item}}" data-type="1">
+            <image class='carlist-checkicon' src='/images/36.png' />
+        </label>
+        <image class='carlist-shopicon' src='/images/32.png' />
+        <view class='carlist-shopname'>{{shop.shop_name}}</view>
+        <image src='/images/7.png' class='carlist-shopgo' />
+    </view>
+
+    <table class='carlist-item' wx:for="{{shop.itemList}}" wx:key="car_item_id" wx:for-item="item" wx:for-index="iindex">
+        <tr>
+            <td class="carlist-item-checkbox">
+                <label class="carlist-checkbox {{selectedItem[item.car_item_id]?'checked':''}}" bindtap="selectItem" data-shop="{{shop}}" data-item="{{item}}" data-type="2">
+                    <image class='carlist-checkicon' src='/images/36.png' />
+                </label>
+            </td>
+            <td class="carlist-item-img">
+                <image src='{{config.res+item.item_face}}' />
+            </td>
+            <td class="carlist-item-content">
+                <view class='carlist-item-name'>{{item.item_name}}</view>
+                <view class='carlist-item-cate'>
+                    <text wx:for="{{item.specGroup}}" wx:key="item_spec_id" wx:for-item="group">
+                        {{group.parent_spec_name}}: {{group.spec_name}}
+                    </text>
+                </view>
+                <view class='carlist-item-pcount'>
+                    <view class='carlist-item-price'>￥{{item.sku_price}}</view>
+                    <view class='iteminfo-count'>
+                        <image class='iteminfo-count-jian' src="/images/30.png" bindtap='changeBuyCount' data-type="0"  data-shopindex="{{sindex}}" data-itemindex="{{iindex}}" />
+                        <view class='iteminfo-count-num'>{{item.buy_count}}</view>
+                        <image class='iteminfo-count-jia' src="/images/31.png" bindtap='changeBuyCount' data-type="1"  data-shopindex="{{sindex}}" data-itemindex="{{iindex}}" />
+                    </view>
+                </view>
+            </td>
+        </tr>
+    </table>
+
+    <view class='space-gray' style='margin:0;'></view>
+</view>
+
+<!--背景色-->
+<view class='space-bg'></view>
+
+<!--底部-->
+<view class='space-gray' style='margin:0;height:100rpx;'></view>
+<view class='shoppay' wx:if="{{shopList.length>0}}">
+    <view class="carlist-checkall {{selectedAll?'checked':''}}" bindtap="selectItem" data-type="3">
+        <image src='/images/37.png' />
+    </view>
+    <view class='carlist-text'>
+        <text class='carlist-checkall-text'>全选</text>
+        <text class='carlist-checkall-del' bindtap='delUserCarItem'>删除</text>
+        <text class='carlist-checkall-heji'>合计：</text>
+        <text class='carlist-checkall-price'>￥{{totalMoney || 0}}</text>
+    </view>
+    
+    <view class='shopay-btn show' bindtap='toBuy'>确认购买</view>
+</view>
+
+<!--空数据-->
+<view class="nodata" wx:if="{{shopList.length==0}}">
+    <image src="/images/62.png" />
+    <text>空空如也~</text>
+</view>

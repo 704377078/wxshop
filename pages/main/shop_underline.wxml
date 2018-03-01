@@ -1,0 +1,38 @@
+<!--顶部分类-->
+<scroll-view scroll-x class='scrollver' style="width:{{windowWidth}}px;">
+    <table>
+        <tr>
+            <td wx:for="{{cateList}}" wx:key="shop_cate_id" bindtap="doSearch" data-cateid="{{item.shop_cate_id}}">
+                <view class="scrollver-item {{shop_cate_id==item.shop_cate_id?'active':''}}">{{item.cate_name}}</view>
+            </td>
+        </tr>
+    </table>
+</scroll-view>
+<view class='space-gray'></view>
+
+<!--商铺列表-->
+<view class='shoplist' wx:for="{{list}}" wx:key="shop_id" data-shopid="{{item.shop_id}}"
+    bindtap='toShop'>
+    <view class='shoplist-img'>
+        <image src='{{config.res+item.shop_logo}}' mode='aspectFill' />
+        <view class='shoplist-fl'>返利{{item.money_discount*100}}%</view>
+    </view>
+    <view class='shoplist-right'>
+        <view class='shoplist-name'>{{item.shop_name}}</view>
+        <view class='shoplist-dist'>{{item.distance?item.distance+"km":"未知"}}</view>
+        <view class='shoplist-start'>
+            <view class='shoplist-start-bg' style='background-image:url({{config.res+"images/9.png"}})'></view>
+            <view class='shoplist-start-cover' style='background-image:url({{config.res+"images/10.png"}});width:{{item.shop_score*35}}rpx;'></view>
+        </view>
+        <view class='shoplist-count'>{{item.total_user_count || 0}}人消费</view>
+        <view class='shoplist-address'><image src='/images/11.png'/>{{item.shop_info_address || ''}}</view>
+        <view class='shoplist-ad'><image src='/images/12.png'/>{{item.shop_title || ''}}</view>
+        <image class='shoplist-go' src='/images/7.png' />
+    </view>
+</view>
+
+<!--空数据-->
+<view class="nodata" wx:if="{{list.length==0}}">
+    <image src="/images/62.png" />
+    <text>空空如也~</text>
+</view>

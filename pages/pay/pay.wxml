@@ -1,0 +1,71 @@
+<!--店铺基本信息-->
+<table class="shopheader simple">
+    <tr>
+        <td class="shopheader-img">
+            <image src='{{config.res+shop.shop_logo}}' />
+        </td>
+        <td class="shopheader-text">
+            <view class='shopheader-name'>{{shop.shop_name}}</view>
+            <view class='shopheader-tongji'>共{{shop.total_user_count}}人消费 | 评价{{shop.shop_score}}分</view>
+            <view class='shopheader-fanli'><image src='/images/15.png'/>返利{{shop.money_discount * 100}}%</view>
+        </td>
+    </tr>
+</table>
+
+<view class='space-gray'></view>
+
+<!--付款信息-->
+<view class='payinput'>
+    <view class='payinput-text'>付款金额</view>
+    <image class='payinput-icon' src='/images/26.png' />
+    <input class='payinput-input' placeholder='请输入付款金额' type='digit' bindinput="moneyChange" />
+</view>
+<view class='pay-tips'>Tips: 请与商家收银人员确认具体付款金额</view>
+
+<!--支付-->
+<view class='pay-area'>
+    <checkbox-group bindchange="checkboxChange">
+        <label>
+            <checkbox class="pay-checkbox" value="1"/>
+            <view class='pay-t1'>余额支付</view>
+            <view class='pay-t2'>（当前可用余额: ￥{{userMoney}}）</view>
+        </label>
+    </checkbox-group>
+
+    <view class='pay-t3'>支付：<text class='pay-t4'>￥{{isBalancePay?(total_price-userMoney > 0 ? total_price-userMoney : 0) : (total_price || 0)}}</text></view>
+    <view class='pay-button' bindtap='toPay'>去支付</view>
+</view>
+
+<view class="cash-pop-notice" wx:if="{{flag}}">
+  <view class='cash-pop-main'>
+    <view class="closeDiv" bindtap='hideFlag'>
+      <icon class='pop-main-icon' type="clear" size="20" />
+    </view>
+    <view class="cash-pop-title">请输入支付密码</view>
+    <view class="cash-password-main">
+      <view>
+        <input class='password-input' type="number" bindinput='toSetPasswprd' value="{{password}}" data-key='password' maxlength="6" />
+      </view>
+      <view class="password-box clearfix">
+        <view class='password-sigle'>
+          <i wx:if="{{passwordLength>0}}"></i>
+        </view>
+        <view class='password-sigle'>
+          <i wx:if="{{passwordLength>1}}"></i>
+        </view>
+        <view class='password-sigle'>
+          <i wx:if="{{passwordLength>2}}"></i>
+        </view>
+        <view class='password-sigle'>
+          <i wx:if="{{passwordLength>3}}"></i>
+        </view>
+        <view class='password-sigle'>
+          <i wx:if="{{passwordLength>4}}"></i>
+        </view>
+        <view class='password-sigle'>
+          <i wx:if="{{passwordLength==6}}"></i>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

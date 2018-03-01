@@ -1,0 +1,223 @@
+<!--状态-->
+<table class="order-address" wx:if="{{order.order_status==1}}">
+  <tr>
+    <td class="order-address-icon">
+      <image src='/images/45.png' style='width:40rpx;height:39rpx;' />
+    </td>
+    <td>
+      <view class='order-address-name'>待付款</view>
+      <view class='order-address-content'>剩余{{order.left_time}}自动关闭订单</view>
+    </td>
+  </tr>
+</table>
+<table class="order-address" wx:if="{{order.order_status==2}}">
+  <tr>
+    <td class="order-address-icon">
+      <image src='/images/45.png' style='width:40rpx;height:39rpx;' />
+    </td>
+    <td>
+      <view class='order-address-name'>待发货</view>
+      <view class='order-address-content'>等待商家发货</view>
+    </td>
+  </tr>
+</table>
+<table class="order-address" wx:if="{{order.order_status==3}}" bindtap='toLogistics'>
+  <tr>
+    <td class="order-address-icon">
+      <image src='/images/45.png' style='width:40rpx;height:39rpx;' />
+    </td>
+    <td>
+      <view class='order-address-name'>待收货</view>
+      <view class='order-address-content'>{{expressInfo}}</view>
+    </td>
+    <td class='order-address-go'>
+      <image src='/images/7.png' />
+    </td>
+  </tr>
+</table>
+<table class="order-address" wx:if="{{order.order_status==4}}">
+  <tr>
+    <td class="order-address-icon">
+      <image src='/images/45.png' style='width:40rpx;height:39rpx;' />
+    </td>
+    <td>
+      <view class='order-address-name'>待评价</view>
+      <view class='order-address-content'>请评价您的本次消费</view>
+    </td>
+    <!-- <td class='order-address-go'>
+      <image src='/images/7.png' />
+    </td> -->
+  </tr>
+</table>
+<table class="order-address" wx:if="{{order.order_status==5}}">
+  <tr>
+    <td class="order-address-icon">
+      <image src='/images/45.png' style='width:40rpx;height:39rpx;' />
+    </td>
+    <td>
+      <view class='order-address-name'>已评价</view>
+      <view class='order-address-content'>感谢您的光顾，期待下次为您服务</view>
+    </td>
+  </tr>
+</table>
+<table class="order-address" wx:if="{{order.order_status==6}}" bindtap='toReturnDetail'>
+  <tr>
+    <td class="order-address-icon">
+      <image src='/images/45.png' style='width:40rpx;height:39rpx;' />
+    </td>
+    <td>
+      <view class='order-address-name'>已退货</view>
+      <view class='order-address-content'>商家已同意退货</view>
+    </td>
+    <td class='order-address-go'>
+      <image src='/images/7.png' />
+    </td>
+  </tr>
+</table>
+<table class="order-address" wx:if="{{order.order_status==8}}" bindtap='toReturnDetail'>
+  <tr>
+    <td class="order-address-icon">
+      <image src='/images/45.png' style='width:40rpx;height:39rpx;' />
+    </td>
+    <td>
+      <view class='order-address-name'>退货中</view>
+      <view class='order-address-content'>等待商家同意退货</view>
+    </td>
+    <td class='order-address-go'>
+      <image src='/images/7.png' />
+    </td>
+  </tr>
+</table>
+<table class="order-address" wx:if="{{order.order_status==9}}" bindtap='toReturnDetail'>
+  <tr>
+    <td class="order-address-icon">
+      <image src='/images/45.png' style='width:40rpx;height:39rpx;' />
+    </td>
+    <td>
+      <view class='order-address-name'>退货失败</view>
+      <view class='order-address-content'>您可再次申请退货</view>
+    </td>
+    <td class='order-address-go'>
+      <image src='/images/7.png' />
+    </td>
+  </tr>
+</table>
+<view class='space-gray' style='margin:0;height:1rpx;'></view>
+
+
+<!--地址-->
+<table class="order-address">
+  <tr>
+    <td class="order-address-icon">
+      <image src='/images/38.png' />
+    </td>
+    <td>
+      <view class='order-address-name'>{{order.express_username}}</view>
+      <view class='order-address-phone'>{{order.express_phone}}</view>
+      <view class='order-address-content'>{{order.express_address}}</view>
+    </td>
+  </tr>
+</table>
+<view class='space-gray' style='margin:0;'></view>
+
+<!--商品-->
+<view class="carlist nocheck">
+  <view class='carlist-shop nocheck'>
+    <image class='carlist-shopicon' src='/images/32.png' />
+    <view class='carlist-shopname'>{{order.shop_name}}</view>
+    <!-- <image src='/images/7.png' class='carlist-shopgo' /> -->
+  </view>
+
+  <table class='carlist-item' wx:for="{{order.itemList}}" wx:key="order_item_id" wx:for-item="item">
+    <tr>
+      <td class="carlist-item-img">
+        <image src='{{config.res + item.item_face}}' />
+      </td>
+      <td class="carlist-item-content">
+        <view class='carlist-item-name'>{{item.item_name}}</view>
+        <view class='carlist-item-cate'>{{item.spec_group_text}}</view>
+        <view class='carlist-item-return' wx:if="{{item.return_status==1}}">退货中 </view>
+        <view class='carlist-item-return' wx:if="{{item.return_status==2}}">已退货 </view>
+        <block wx:if="{{order.order_status==4||order.order_status==5}}">
+          <view class='carlist-item-grade' bindtap='toGrade' data-itemid='{{item.item_id}}' wx:if="{{!item.item_score}}">评价</view>
+        </block>
+        <view class='carlist-item-pcount'>
+          <view class='carlist-item-price'>￥{{item.sku_price}}</view>
+          <view class='carlist-item-num'>数量: {{item.buy_count}}</view>
+        </view>
+      </td>
+    </tr>
+  </table>
+
+  <view class='carlist-shop-total'>
+    <view class='left'>共{{order.itemCount}}件商品</view>
+    <view class='right'>
+      <text class='label'>合计: </text>
+      <text class='price'>￥{{order.order_price}}</text>
+    </view>
+  </view>
+  <view class='space-gray' style='margin:0;'></view>
+</view>
+
+<!--订单信息-->
+<view class='orderdetail-info'>
+  <text>订单编号：{{order.order_no}}</text>
+  <text>下单时间：{{order.create_time}}</text>
+  <text wx:if="{{order.pay_time}}">支付时间：{{order.pay_time}}</text>
+  <text wx:if="{{order.send_time}}">发货时间：{{order.send_time}}</text>
+  <view class='orderdetail-copy' bindtap='copyOrderNo'>复制</view>
+</view>
+
+<!-- 底部按钮 -->
+<block wx:if="{{order.order_status==1}}">
+  <view class='space' style="height:130rpx;"></view>
+  <view class='pagebottom'>
+    <view class='carlist-btnlist'>
+      <view bindtap='delOrder'>取消订单</view>
+      <view class='yellow' bindtap='goPay'>去付款</view>
+    </view>
+  </view>
+</block>
+<block wx:if="{{order.order_status==2}}">
+  <view class='space' style="height:130rpx;"></view>
+  <view class='pagebottom'>
+    <view class='carlist-btnlist'>
+      <view bindtap='toReturnDetail' wx:if="{{order.lastReturnInfo.order_return_id}}">退货记录</view>
+      <view class='yellow' bindtap='toApplyReturn'>退款/退货</view>
+    </view>
+  </view>
+</block>
+<block wx:if="{{order.order_status==3}}">
+  <view class='space' style="height:130rpx;"></view>
+  <view class='pagebottom'>
+    <view class='carlist-btnlist'>
+      <view bindtap='toApplyReturn'>退款/退货</view>
+      <view class='yellow' bindtap='confirmReceipt'>确认收货</view>
+    </view>
+  </view>
+</block>
+<block wx:if="{{order.order_status==-4}}">
+  <view class='space' style="height:130rpx;"></view>
+  <view class='pagebottom'>
+    <view class='carlist-btnlist'>
+      <view class='yellow' bindtap='toGrade'>评价</view>
+    </view>
+  </view>
+</block>
+<block wx:if="{{order.order_status==6}}">
+  <view class='space' style="height:130rpx;"></view>
+  <view class='pagebottom'>
+    <view class='carlist-btnlist'>
+      <view class='yellow' bindtap='toApplyReturn' wx:if="{{order.can_return}}">退款/退货</view>
+      <view class='yellow' bindtap='toReturnDetail' wx:if="{{order.lastReturnInfo.order_return_id}}">退货记录</view>
+    </view>
+  </view>
+</block>
+<block wx:if="{{order.order_status==8}}">
+  <view class='space' style="height:130rpx;"></view>
+  <view class='pagebottom'>
+    <view class='carlist-btnlist'>
+      <view class='yellow' bindtap='toReturnDetail' wx:if="{{order.lastReturnInfo.order_return_id}}">退货记录</view>
+    </view>
+  </view>
+</block>

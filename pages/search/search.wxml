@@ -1,0 +1,59 @@
+<!--搜索-->
+<table class='search' cellpadding="0">
+    <tr>
+        <td>
+            <view class='search-input'>
+                <image src='/images/14.png' />
+                <input placeholder='搜索附近店铺' bindinput="inputSearch" /> 
+            </view>
+        </td>
+        <td class='search-city'>
+            <view style='text-align:center;' bindtap='doSearch'>搜索</view>
+        </td>
+    </tr>
+</table>
+
+<!--排序行-->
+<view class='scrollver noshadow c4'>
+    <table>
+        <tr>
+            <td><view class="scrollver-item {{orderType==1?'active':''}}" bindtap="changeOrder" data-ordertype="1">距离排序</view></td>
+            <td><view class="scrollver-item {{orderType==2?'active':''}}" bindtap="changeOrder" data-ordertype="2">销量排序</view></td>
+            <td><view class="scrollver-item {{orderType==3?'active':''}}" bindtap="changeOrder" data-ordertype="3">评分排序</view></td>
+            <td><view class="scrollver-item {{orderType==4?'active':''}}" bindtap="changeOrder" data-ordertype="4">返利排序</view></td>
+            <!-- <td class="filter"><view class='scrollver-item'>筛选<image src='/images/20.png' /></view></td> -->
+        </tr>
+    </table>
+</view>
+
+<!--历史记录-->
+<view class='textblock' wx:if="{{false}}">
+    <view class='textblock-title'>历史记录</view>
+    <view class='textblock-item'>好吃的</view>
+    <view class='textblock-item'>好哇亲的</view>
+    <view class='textblock-item'>好哇亲的</view>
+    <view class='textblock-item'>好哇亲的</view>
+    <view class='textblock-item'>好哇亲的</view>
+    <view class='textblock-item'>好哇亲的</view>
+</view>
+
+<!--商铺列表-->
+<view class='shoplist' wx:for="{{list}}" wx:key="shop_id" data-shopid="{{item.shop_id}}"
+    bindtap='toShop'>
+    <view class='shoplist-img'>
+        <image src='{{cofig.res+item.shop_logo}}' mode='aspectFill' />
+        <view class='shoplist-fl'>返利{{item.money_discount*100}}%</view>
+    </view>
+    <view class='shoplist-right'>
+        <view class='shoplist-name'>{{item.shop_name}}</view>
+        <view class='shoplist-dist'>{{item.distance}}km</view>
+        <view class='shoplist-start'>
+            <view class='shoplist-start-bg' style='background-image:url({{config.res+"images/9.png"}})'></view>
+            <view class='shoplist-start-cover' style='background-image:url({{config.res+"images/10.png"}});width:{{item.shop_score*35}}rpx;'></view>
+        </view>
+        <view class='shoplist-count'>{{item.total_user_count}}人消费</view>
+        <view class='shoplist-address'><image src='/images/11.png'/>{{item.shop_info_address}}</view>
+        <view class='shoplist-ad'><image src='/images/12.png'/>{{item.shop_title}}</view>
+        <image class='shoplist-go' src='/images/7.png' />
+    </view>
+</view>

@@ -1,0 +1,87 @@
+<!-- 流程 -->
+<ul class='process'>
+  <li class='active'>
+    <view class='process-index'>1</view>
+    <view class='process-text'>申请退款</view>
+    <view class='process-time'>{{returnInfo.create_time}}</view>
+  </li>
+  <li class='active'>
+    <view class='process-index'>2</view>
+    <view class='process-text'>商家处理</view>
+    <view class='process-line'></view>
+  </li>
+  <li class="{{returnInfo.return_status>1?'active':''}}">
+    <view class='process-index'>3</view>
+    <view class='process-text'>{{returnInfo.return_status==3?'退款失败':'退款成功'}}</view>
+    <view class='process-time'>{{returnInfo.confirm_time || ''}}</view>
+    <view class='process-line'></view>
+  </li>
+</ul>
+<view class='space-gray' style='margin:0;'></view>
+
+<!--商品-->
+<view class="carlist nocheck">
+  <view class='carlist-shop nocheck'>
+    <image class='carlist-shopicon' src='/images/32.png' />
+    <view class='carlist-shopname'>{{returnInfo.itemList[0].shop_name}}</view>
+    <image src='/images/7.png' class='carlist-shopgo' />
+  </view>
+
+  <table class='carlist-item' wx:for="{{returnInfo.itemList}}" wx:key="order_item_id" wx:for-item="item">
+    <tr>
+      <td class="carlist-item-img">
+        <image src='{{config.res+item.item_face}}' />
+      </td>
+      <td class="carlist-item-content">
+        <view class='carlist-item-name'>{{item.item_name}}</view>
+        <view class='carlist-item-cate'>{{item.spec_group_text}}</view>
+        <view class='carlist-item-pcount'>
+          <view class='carlist-item-price'>￥{{item.sku_price}}</view>
+          <view class='carlist-item-num'>数量: {{item.buy_count}}</view>
+        </view>
+      </td>
+    </tr>
+  </table>
+
+  <view class='carlist-shop-total'>
+    <view class='left'>共{{returnInfo.itemList.length}}件商品</view>
+    <view class='right'>
+      <text class='label'>合计: </text>
+      <text class='price'>￥{{returnInfo.total_money}}</text>
+    </view>
+  </view>
+  <view class='carlist-shop-total' style='clear:both;'>
+    <view class='left'></view>
+    <view class='right'>
+      <text class='label'>退款金额: </text>
+      <text class='price'>￥{{returnInfo.return_money}}</text>
+    </view>
+  </view>
+  <view class='space-gray' style='margin:0;'></view>
+</view>
+
+<!--订单信息-->
+<view class='orderdetail-info'>
+  <text>退款原因：{{returnInfo.reason}}</text>
+  <text>订单编号：{{returnInfo.order_no}}</text>
+  <text>申请时间：{{returnInfo.create_time}}</text>
+  <text wx:if="{{returnInfo.confirm_time}}">退款时间：{{returnInfo.confirm_time}}</text>
+</view>
+
+<!-- 底部按钮 -->
+<block wx:if="{{returnInfo.return_status==1}}">
+  <view class='space' style="height:130rpx;"></view>
+  <view class='pagebottom'>
+    <view class='carlist-btnlist'>
+      <view class='yellow' bindtap='cancelOrderReturn'>取消退款</view>
+    </view>
+  </view>
+</block>
+<block wx:if="{{returnInfo.return_status==3}}">
+  <view class='space' style="height:130rpx;"></view>
+  <view class='pagebottom'>
+    <view class='carlist-btnlist' wx:if="{{returnInfo.return_status==3}}">
+      <view class='yellow' bindtap='toApplyReturn'>再次申请</view>
+    </view>
+  </view>
+</block>

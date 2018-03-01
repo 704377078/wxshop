@@ -1,0 +1,6 @@
+<!--pages/settle/type.wxml-->
+<view class='seller-settle'>
+<view class='seller-type' bindtap='apply' data-shoptype='1'>入驻为线下店铺</view>
+<view class='seller-type' bindtap='apply' data-shoptype='2'>入驻为优价网店铺</view>
+</view>
+

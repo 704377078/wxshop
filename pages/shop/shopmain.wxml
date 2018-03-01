@@ -1,0 +1,111 @@
+<!--店铺基本信息-->
+<table class="shopheader" style="background-image:url({{config.res+'images/1.jpg'}});">
+  <tr>
+    <td class="shopheader-img">
+      <image src='{{config.res + shop.shop_logo}}' mode='aspectFill' />
+    </td>
+    <td class="shopheader-text">
+      <view class='shopheader-name'>{{shop.shop_name}}</view>
+      <view class='shopheader-tongji'>共{{shop.total_user_count}}人消费 | 评价{{shop.shop_score}}分</view>
+      <view class='shopheader-fanli'>
+        <image src='/images/15.png' />返利{{shop.money_discount * 100}}%</view>
+      <view class='shopheader-ad'>
+        <image class='shopheader-ad-icon' src='/images/12.png' />{{shop.shop_title}}
+      </view>
+      <view class='shopheader-favorite' bindtap='updateUserFavoriteShop'>
+        <image src="/images/{{isFavorite?'16':'17'}}.png" />
+        <view>收藏店铺</view>
+      </view>
+    </td>
+  </tr>
+</table>
+
+<!--商家信息-->
+<view class='infotitle'>商家信息</view>
+<view class='infoline'>
+  <view class='infoline-item'>
+    <image class='infoline-icon' src='/images/22.png' style='width:24rpx;height:21rpx;' />
+    <view class='infoline-title'>所属分类</view>
+    <view class='infoline-text'>{{shop.cate_name}}</view>
+  </view>
+  <view class='infoline-item'>
+    <image class='infoline-icon' src='/images/23.png' style='width:28rpx;height:27rpx;' />
+    <view class='infoline-title'>商家电话</view>
+    <view class='infoline-text' bindtap='callphone'>{{shop.shop_info_linkphone}}</view>
+  </view>
+  <view class='infoline-item multi' bindtap="toShopMap">
+    <image class='infoline-icon' src='/images/24.png' style='width:21rpx;height:28rpx;' />
+    <view class='infoline-title'>商家地址</view>
+    <view class='infoline-text'>{{shop.shop_info_address}}</view>
+    <image class='infoline-go' src='/images/7.png' />
+  </view>
+  <view class='infoline-item noborder'>
+    <image class='infoline-icon' src='/images/25.png' style='width:27rpx;height:27rpx;' />
+    <view class='infoline-title'>营业时间</view>
+    <view class='infoline-text'>{{shop.shop_info_opentime_begin}} - {{shop.shop_info_opentime_end}}</view>
+  </view>
+</view>
+
+<!--商家评价-->
+<view class='space-gray' style='margin-bottom:0;'></view>
+<view class='infotitle'>评价（共{{commentCount}}条）</view>
+<view class='shopscore'>
+  <view class='shopscore-inner'>
+    <view class='shopscore-score'>{{shop.shop_score}}</view>
+    <view class='shopscore-title'>商家评价</view>
+    <view class='shoplist-start'>
+      <view class='shoplist-start-bg' style='background-image:url({{config.res+"images/9.png"}})'></view>
+      <view class='shoplist-start-cover' style='background-image:url({{config.res+"images/10.png"}});width:{{shop.shop_score*35}}rpx;'></view>
+    </view>
+    <view class='shopscore-score2'>{{shop.shop_score}}</view>
+  </view>
+</view>
+<view class='space-gray' style='margin-bottom:0;'></view>
+
+<!--tab-->
+<view class='scrollver noshadow c2'>
+  <table>
+    <tr>
+      <td bindtap="changeCommentTab" data-type="1">
+        <view class="scrollver-item {{!comment_hasImg?'active':''}}">全部</view>
+      </td>
+      <td bindtap="changeCommentTab" data-type="2">
+        <view class="scrollver-item {{comment_hasImg?'active':''}}">有图（{{commentHasImgCount}}）</view>
+      </td>
+    </tr>
+  </table>
+</view>
+
+<!--评价列表-->
+<view class='comment' wx:for="{{comment_list}}" wx:key="comment_id" wx:for-item="d">
+  <view class='comment-head'>
+    <image src='{{d.wx_headimg}}' />
+  </view>
+  <view class='comment-right'>
+    <view class='comment-name'>{{d.wx_nickname}}</view>
+    <view class='comment-date'>{{d.create_time}}</view>
+    <view class='comment-pj'>
+      <view class='comment-pj-text'>评价</view>
+      <view class='shoplist-start'>
+        <view class='shoplist-start-bg' style='background-image:url({{config.res+"images/9.png"}})'></view>
+        <view class='shoplist-start-cover' style='background-image:url({{config.res+"images/10.png"}});width:{{d.score * 35}}rpx;'></view>
+      </view>
+    </view>
+    <view class='comment-content'>{{d.content}}</view>
+    <view class='comment-img'>
+      <view class='comment-img-item' wx:for="{{d.imgList}}" wx:for-item="c" wx:key="id">
+        <image src='{{config.res + c.imgurl}}' mode='aspectFill' />
+      </view>
+    </view>
+    <view class='comment-reply-box' wx:for="{{d.commentList}}" wx:key="comment_id" wx:for-item="m">
+      <view class='comment-shop-title'>{{shop.shop_name}} 回复：</view>
+      <view class='comment-shop-reply'>
+        {{m.content}}
+        <view class='comment-reply-date'>{{m.create_time}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='nodata static'>
+  <text>没有评论</text>
+</view>

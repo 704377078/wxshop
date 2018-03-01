@@ -1,0 +1,31 @@
+<form bindsubmit="submit">
+  <view class='scrollver noshadow c4'>
+    <table>
+      <tr>
+        <td>
+          <view class="scrollver-item {{recharge_type==1?'active':''}}" bindtap="pickerChange" data-type="1">自己</view>
+        </td>
+        <td>
+          <view class="scrollver-item {{recharge_type==2?'active':''}}" bindtap="pickerChange" data-type="2">他人</view>
+        </td>
+      </tr>
+    </table>
+  </view>
+  <view class='grade'>
+    <table class="form">
+      <tr wx:if="{{recharge_type==2}}">
+        <td class="label">充值对象</td>
+        <td class="input">
+          <input placeholder='请输入手机号码' name='phone' type='number' />
+        </td>
+      </tr>
+      <tr>
+        <td class="label">充值金额</td>
+        <td class="input">
+          <input placeholder='请输入充值金额' name='money' type='digit' />
+        </td>
+      </tr>
+    </table>
+  </view>
+  <button class='bigbutton' formType="submit">确认</button>
+</form>

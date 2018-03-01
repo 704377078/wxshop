@@ -1,0 +1,7 @@
+<view class="ps-bg" style='background-image:url({{config.res+"images/54.png"}})'>
+    <view class="ps-img">
+        <image src="/images/63.png" />
+    </view>
+    <view class="ps-fkcg">付款成功！</view>
+    <view class="ps-label">本次共支付<text>￥{{money}}</text></view>
+</view>

@@ -1,0 +1,56 @@
+<!--搜索-->
+<table class='search' cellpadding="0">
+    <tr>
+        <td>
+            <view class='search-input'>
+                <image src='/images/14.png' />
+                <input placeholder='搜索商品' bindinput="inputSearch" /> 
+            </view>
+        </td>
+        <td class='search-city'>
+            <view style='text-align:center;' bindtap='doSearch'>搜索</view>
+        </td>
+    </tr>
+</table>
+
+<!--排序行-->
+<view class='scrollver noshadow c4'>
+    <table>
+        <tr>
+            <td><view class="scrollver-item {{orderType==1?'active':''}}" bindtap="changeOrder" data-ordertype="1">返利排序</view></td>
+            <td><view class="scrollver-item {{orderType==2?'active':''}}" bindtap="changeOrder" data-ordertype="2">销量排序</view></td>
+            <td><view class="scrollver-item {{orderType==3?'active':''}}" bindtap="changeOrder" data-ordertype="3">价格排序</view></td>
+            <td><view class="scrollver-item {{orderType==4?'active':''}}" bindtap="changeOrder" data-ordertype="4">评分排序</view></td>
+            <!-- <td class="filter"><view class='scrollver-item'>筛选<image src='/images/20.png' /></view></td> -->
+        </tr>
+    </table>
+</view>
+
+<!--历史记录-->
+<view class='textblock' wx:if="{{false}}">
+    <view class='textblock-title'>历史记录</view>
+    <view class='textblock-item'>好吃的</view>
+    <view class='textblock-item'>好哇亲的</view>
+    <view class='textblock-item'>好哇亲的</view>
+    <view class='textblock-item'>好哇亲的</view>
+    <view class='textblock-item'>好哇亲的</view>
+    <view class='textblock-item'>好哇亲的</view>
+</view>
+
+<!--商品列表-->
+<view class='shoplist' wx:for="{{list}}" wx:key="item_id" data-itemid="{{item.item_id}}"
+    bindtap='toItem'>
+    <view class='shoplist-img'>
+        <image src='{{config.res + item.item_face}}' mode='aspectFill' />
+    </view>
+    <view class='shoplist-right'>
+        <view class='shoplist-name'>{{item.item_name}}</view>
+        <view class='shoplist-count' style='float:right;'>{{item.total_item_user_count||0}}人购买</view>
+        <view class='shoplist-price' style='margin-top:8rpx;'>
+            <text class='shoplist-p1'>￥{{item.item_price}}</text>
+            <text class='shoplist-p2'>￥{{item.item_show_price}}</text>
+        </view>
+        <view class='shoplist-ad'><image src='/images/12.png'/>{{item.shop_name}}</view>
+        <image class='shoplist-go' src='/images/7.png' />
+    </view>
+</view>

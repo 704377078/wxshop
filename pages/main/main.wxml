@@ -1,0 +1,86 @@
+<!--搜索-->
+<table class='search' cellpadding="0">
+  <tr>
+    <td class='search-city'>
+      <view bindtap='changeCity'>
+        {{city.city_name}}
+        <image src='/images/13.png' />
+      </view>
+    </td>
+    <td>
+      <view class='search-input'>
+        <image src='/images/14.png' />
+        <input placeholder='搜索商家' confirm-type="search" bindconfirm="doSearch" />
+      </view>
+    </td>
+  </tr>
+</table>
+
+<view  class="nodata"  wx:if="{{!city.city_id}}">
+  <view>无法定位当前城市</view>
+</view>
+<view  class="nodata"  wx:if="{{city.city_id&&!nearShopCount}}">
+  当前城市，暂未开通！
+</view>
+<view wx:if="{{nearShopCount}}">
+  <!--顶部banner-->
+  <swiper indicator-dots="{{true}}" indicator-color="#7b7b7b" indicator-active-color="#ffda44" autoplay="{{true}}" interval="10000" duration="1000">
+    <swiper-item wx:for="{{adList}}" wx:key="ad_id">
+      <image src="{{config.res+item.ad_face}}" mode="aspectFill" style='width:100%;height:300rpx;' />
+    </swiper-item>
+  </swiper>
+
+  <!--分类-->
+  <swiper indicator-dots="{{false}}" autoplay="{{false}}" class='maincate'>
+    <swiper-item wx:for="{{cateList}}" wx:for-item="d" wx:key="index">
+      <view class='maincate-item' wx:for="{{d}}" wx:key="shop_cate_id" bindtap="toCate" data-cateid="{{item.shop_cate_id}}" style="background-image:url({{item.cate_icon?config.res+item.cate_icon:config.res+'images/t2.png'}})">
+        <view class='maincate-text'>{{item.shop_cate_id?item.cate_name:'全部'}}</view>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <!--附近快报-->
+  <view class='fjkb'>
+    <view class='fjkb-inner'>
+      <view class='fjkb-left'>
+        <image src='/images/6.png' mode='scaleToFill' />
+      </view>
+      <view class='fjkb-right'>
+        <image src='/images/7.png' />
+        <swiper indicator-dots="{{false}}" autoplay="{{true}}" vertical="{{true}}" circular="{{true}}" interval="5000" duration="1000" style='height:76rpx;'>
+          <swiper-item wx:for="{{nearShopTitle}}" wx:key="{{shop_id}}" bindtap="toShop" data-shopid="{{item.shop_id}}">
+            <view class='fjkb-title'>{{item.shop_title || '新店开业大酬宾'}}</view>
+            <view class='fjkb-name'>{{item.shop_name}}</view>
+          </swiper-item>
+        </swiper>
+      </view>
+    </view>
+  </view>
+
+  <!--为您推荐-->
+  <view class='wntj'>
+    <image src='/images/8.png' mode='scaleToFill' />
+  </view>
+
+  <!--商铺列表-->
+  <view class='shoplist' wx:for="{{nearShop}}" wx:key="shop_id" data-shopid="{{item.shop_id}}" bindtap='toShop'>
+    <view class='shoplist-img'>
+      <image src='{{config.res+item.shop_logo}}' mode='aspectFill' />
+      <view class='shoplist-fl'>返利{{item.money_discount*100}}%</view>
+    </view>
+    <view class='shoplist-right'>
+      <view class='shoplist-name'>{{item.shop_name}}</view>
+      <view class='shoplist-dist'>{{item.distance?item.distance+"km":"未知"}}</view>
+      <view class='shoplist-start'>
+        <view class='shoplist-start-bg' style='background-image:url({{config.res+"images/9.png"}})'></view>
+        <view class='shoplist-start-cover' style='background-image:url({{config.res+"images/10.png"}});width:{{item.shop_score*35}}rpx;'></view>
+      </view>
+      <view class='shoplist-count'>{{item.total_user_count || 0}}人消费</view>
+      <view class='shoplist-address'>
+        <image src='/images/11.png' />{{item.shop_info_address || ''}}</view>
+      <view class='shoplist-ad'>
+        <image src='/images/12.png' />{{item.shop_title || '新店开业大酬宾'}}</view>
+      <image class='shoplist-go' src='/images/7.png' />
+    </view>
+  </view>
+</view>

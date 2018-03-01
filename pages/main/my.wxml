@@ -1,0 +1,114 @@
+<!--顶部-->
+<view class="myhead">
+    <table class="myinfo">
+        <tr>
+            <td class="myinfo-head">
+                <image src='{{userInfo.wx_headimg}}' />
+            </td>
+            <td>
+                <view class='myinfo-name'>{{userInfo.wx_nickname}}</view>
+                <view class='myinfo-phone' wx:if="{{userInfo.phone}}">{{omitPhone}}</view>
+                <view class='myinfo-phone' wx:if="{{!userInfo.phone}}">
+                    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">点击绑定手机号</button>
+                </view>
+            </td>
+            <td class="myinfom-money" bindtap="toPackage">
+                <view class='myinfo-balance'>￥{{userInfo.user_money}}</view>
+                <view class='myinfo-package'>
+                    <image src='/images/42.png' />
+                    钱包
+                </view>
+            </td>
+        </tr>
+    </table>
+
+    <view class='mycount'>
+        <view class='line' bindtap='toFavorite'>
+            <text class='mycount-num'>{{totalCount.favoriteCount}}</text>
+            <text class='mycount-label'>收藏</text>
+        </view>
+        <view class='line' bindtap='toFootprint'>
+            <text class='mycount-num'>{{totalCount.historyCount}}</text>
+            <text class='mycount-label'>足迹</text>
+        </view>
+        <view bindtap='toCar'>
+            <text class='mycount-num'>{{totalCount.carItemCount}}</text>
+            <text class='mycount-label'>购物车</text>
+        </view>
+    </view>
+
+    <image class='myhead-bg' mode='widthFix' src='/images/43.png' />
+</view>
+<view class='space-gray' style='margin:0;'></view>
+
+<!--订单-->
+<view class='myorder'>
+    <view bindtap='toOnlineOrder'>
+        <label></label>
+        <image src='/images/44.png' style='width:36rpx;height:37rpx;margin-top:10rpx;' />
+        <text>网店订单</text>
+    </view>
+    <view bindtap='toOnlineOrder' data-orderstatus='1'>
+        <image src='/images/45.png' style='width:40rpx;height:39rpx;margin-top:8rpx;' />
+        <text>待付款</text>
+        <view class='myorder-count' wx:if="{{onlineOrderCount[1]}}">{{onlineOrderCount[1]}}</view>
+    </view>
+    <view bindtap='toOnlineOrder' data-orderstatus='3'>
+        <image src='/images/47.png' style='width:45rpx;height:35rpx;margin-top:12rpx;' />
+        <text>待收货</text>
+        <view class='myorder-count' wx:if="{{onlineOrderCount[3]}}">{{onlineOrderCount[3]}}</view>
+    </view>
+    <view bindtap='toOnlineOrder' data-orderstatus='4'>
+        <image src='/images/48.png' style='width:34rpx;height:41rpx;margin-top:6rpx;' />
+        <text>待评价</text>
+        <view class='myorder-count' wx:if="{{onlineOrderCount[4]}}">{{onlineOrderCount[4]}}</view>
+    </view>
+    <view bindtap='toOnlineOrder' data-orderstatus='68'>
+        <image src='/images/49.png' style='width:36rpx;height:33rpx;margin-top:14rpx;' />
+        <text>退货/退款</text>
+        <view class='myorder-count' wx:if="{{onlineReturnCount}}">{{onlineReturnCount}}</view>
+    </view>
+</view>
+<view class='space-gray' style='margin:0;'></view>
+
+<!--列表项-->
+<view class='infoline'>
+    <view class='infoline-item' bindtap='toUnderlineOrder'>
+        <image class='infoline-icon' src='/images/50.png' style='width:23rpx;height:25rpx;' />
+        <view class='infoline-title'>附近消费记录</view>
+        <image class='infoline-go' src='/images/7.png' />
+    </view>
+    <view class='infoline-item' bindtap='showAddress'>
+        <image class='infoline-icon' src='/images/51.png' style='width:21rpx;height:28rpx;'/>
+        <view class='infoline-title'>收货地址</view>
+        <image class='infoline-go' src='/images/7.png' />
+    </view>
+     <view class='infoline-item multi' bindtap='updatePassword'>
+        <image class='infoline-icon' src='/images/52.png' style='width:21rpx;height:29rpx;'/>
+        <view class='infoline-title'>修改支付密码</view>
+        <image class='infoline-go' src='/images/7.png' />
+    </view> 
+    <view class='infoline-item noborder'>
+        <image class='infoline-icon' src='/images/53.png' style='width:24rpx;height:24rpx;'/>
+        <view class='infoline-title'>更多</view>
+        <image class='infoline-go' src='/images/7.png' />
+    </view>
+</view>
+<view class='space-gray' style='margin:0;'></view>
+
+<!--其他-->
+<view class='title-mid' style='margin:20rpx 0;'>其他</view>
+<view class='mytg'>
+    <view bindtap='toSettle'>
+        <image src='/images/2.jpg' mode='aspectFill' />
+        <text>店铺入驻</text>
+    </view>
+    <view bindtap='toRecommend'>
+        <image src='/images/3.jpg' mode='aspectFill' />
+        <text>推荐有奖</text>
+    </view>
+    <view>
+        <image src='/images/4.jpg' mode='aspectFill' />
+        <text>广告合作</text>
+    </view>
+</view>
